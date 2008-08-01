@@ -12,17 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package net.sf.arsmachina.controller.impl;
+package br.com.arsmachina.controller.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.arsmachina.controller.impl.ControllerImpl;
-import net.sf.arsmachina.dao.DAO;
 
 import org.easymock.EasyMock;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import br.com.arsmachina.controller.impl.ControllerImpl;
+import br.com.arsmachina.dao.DAO;
 
 /**
  * Test class for {@link ControllerImpl}.

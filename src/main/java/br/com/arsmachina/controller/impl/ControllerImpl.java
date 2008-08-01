@@ -12,14 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package net.sf.arsmachina.controller.impl;
+package br.com.arsmachina.controller.impl;
 
 import java.io.Serializable;
 import java.util.List;
 
-import net.sf.arsmachina.controller.Controller;
-import net.sf.arsmachina.dao.DAO;
-import net.sf.arsmachina.dao.SortCriterion;
+import br.com.arsmachina.controller.Controller;
+import br.com.arsmachina.dao.DAO;
+import br.com.arsmachina.dao.SortCriterion;
+
 
 /**
  * Abstract class that implements the {@link Controller} interface by delegating all method calls to
@@ -51,7 +52,7 @@ public abstract class ControllerImpl<T, K extends Serializable> implements Contr
 	/**
 	 * Invokes <code>delegate.countAll()<code>.
 	 * @return
-	 * @see net.sf.arsmachina.dao.ReadableDAO#countAll()
+	 * @see br.com.arsmachina.dao.ReadableDAO#countAll()
 	 */
 	public int countAll() {
 		return dao.countAll();
@@ -60,7 +61,7 @@ public abstract class ControllerImpl<T, K extends Serializable> implements Contr
 	/**
 	 * Invokes <code>dao.delete()<code>.
 	 * @param id
-	 * @see net.sf.arsmachina.dao.WriteableDAO#delete(java.io.Serializable)
+	 * @see br.com.arsmachina.dao.WriteableDAO#delete(java.io.Serializable)
 	 */
 	public void delete(K id) {
 		dao.delete(id);
@@ -69,7 +70,7 @@ public abstract class ControllerImpl<T, K extends Serializable> implements Contr
 	/**
 	 * Invokes <code>dao.delete()<code>.
 	 * @param object
-	 * @see net.sf.arsmachina.dao.WriteableDAO#delete(java.lang.Object)
+	 * @see br.com.arsmachina.dao.WriteableDAO#delete(java.lang.Object)
 	 */
 	public void delete(T object) {
 		dao.delete(object);
@@ -78,7 +79,7 @@ public abstract class ControllerImpl<T, K extends Serializable> implements Contr
 	/**
 	 * Invokes <code>dao.evict()<code>.
 	 * @param object
-	 * @see net.sf.arsmachina.dao.WriteableDAO#evict(java.lang.Object)
+	 * @see br.com.arsmachina.dao.WriteableDAO#evict(java.lang.Object)
 	 */
 	public void evict(T object) {
 		dao.evict(object);
@@ -87,7 +88,7 @@ public abstract class ControllerImpl<T, K extends Serializable> implements Contr
 	/**
 	 * Invokes <code>dao.findAll()<code>.
 	 * @return
-	 * @see net.sf.arsmachina.dao.ReadableDAO#findAll()
+	 * @see br.com.arsmachina.dao.ReadableDAO#findAll()
 	 */
 	public List<T> findAll() {
 		return dao.findAll();
@@ -99,7 +100,7 @@ public abstract class ControllerImpl<T, K extends Serializable> implements Contr
 	 * @param maxResults
 	 * @param sortCriteria
 	 * @return
-	 * @see net.sf.arsmachina.dao.ReadableDAO#findAll(int, int, net.sf.arsmachina.dao.SortConstraint[])
+	 * @see br.com.arsmachina.dao.ReadableDAO#findAll(int, int, br.com.arsmachina.dao.SortConstraint[])
 	 */
 	public List<T> findAll(int firstResult, int maxResults, SortCriterion... sortCriteria) {
 		return dao.findAll(firstResult, maxResults, sortCriteria);
@@ -109,7 +110,7 @@ public abstract class ControllerImpl<T, K extends Serializable> implements Contr
 	 * Invokes <code>dao.findById()<code>.
 	 * @param ids
 	 * @return
-	 * @see net.sf.arsmachina.dao.ReadableDAO#findById(K[])
+	 * @see br.com.arsmachina.dao.ReadableDAO#findById(K[])
 	 */
 	public List<T> findByIds(K... ids) {
 		return dao.findByIds(ids);
@@ -119,7 +120,7 @@ public abstract class ControllerImpl<T, K extends Serializable> implements Contr
 	 * Invokes <code>dao.findById()<code>.
 	 * @param id
 	 * @return
-	 * @see net.sf.arsmachina.dao.ReadableDAO#findById(java.io.Serializable)
+	 * @see br.com.arsmachina.dao.ReadableDAO#findById(java.io.Serializable)
 	 */
 	public T findById(K id) {
 		return dao.findById(id);
@@ -129,7 +130,7 @@ public abstract class ControllerImpl<T, K extends Serializable> implements Contr
 	 * Invokes <code>dao.merge()<code>.
 	 * @param object
 	 * @return
-	 * @see net.sf.arsmachina.dao.WriteableDAO#merge(java.lang.Object)
+	 * @see br.com.arsmachina.dao.WriteableDAO#merge(java.lang.Object)
 	 */
 	public T merge(T object) {
 		return dao.merge(object);
@@ -138,7 +139,7 @@ public abstract class ControllerImpl<T, K extends Serializable> implements Contr
 	/**
 	 * Invokes <code>dao.save()<code>.
 	 * @param object
-	 * @see net.sf.arsmachina.dao.WriteableDAO#save(java.lang.Object)
+	 * @see br.com.arsmachina.dao.WriteableDAO#save(java.lang.Object)
 	 */
 	public void save(T object) {
 		dao.save(object);
@@ -149,8 +150,8 @@ public abstract class ControllerImpl<T, K extends Serializable> implements Contr
 	 * <code>dao.save()<code> otherwise. The object is considered persistent
 	 * if {@link #isPersistent(Object)} returns <code>true</code>. 
 	 * @param object a <code>T</code>.
-	 * @see net.sf.arsmachina.dao.WriteableDAO#saveOrUpdate(java.lang.Object)
-	 * @see net.sf.arsmachina.controller.WriteableController
+	 * @see br.com.arsmachina.dao.WriteableDAO#saveOrUpdate(java.lang.Object)
+	 * @see br.com.arsmachina.controller.WriteableController
 	 */
 	public void saveOrUpdate(T object) {
 
@@ -166,7 +167,7 @@ public abstract class ControllerImpl<T, K extends Serializable> implements Contr
 	/**
 	 * Invokes <code>dao.update()<code>.
 	 * @param object
-	 * @see net.sf.arsmachina.dao.WriteableDAO#update(java.lang.Object)
+	 * @see br.com.arsmachina.dao.WriteableDAO#update(java.lang.Object)
 	 */
 	public void update(T object) {
 		dao.update(object);
@@ -176,7 +177,7 @@ public abstract class ControllerImpl<T, K extends Serializable> implements Contr
 	 * Invokes <code>dao.isPersistent()<code>.
 	 * @param object
 	 * @return
-	 * @see net.sf.arsmachina.dao.WriteableDAO#isPersistent(java.lang.Object)
+	 * @see br.com.arsmachina.dao.WriteableDAO#isPersistent(java.lang.Object)
 	 */
 	public boolean isPersistent(T object) {
 		return dao.isPersistent(object);
@@ -185,7 +186,7 @@ public abstract class ControllerImpl<T, K extends Serializable> implements Contr
 	/**
 	 * Invokes <code>delegate.refresh()<code>.
 	 * @param object
-	 * @see net.sf.arsmachina.dao.ReadableDAO#refresh(java.lang.Object)
+	 * @see br.com.arsmachina.dao.ReadableDAO#refresh(java.lang.Object)
 	 */
 	public void refresh(T object) {
 		dao.refresh(object);
