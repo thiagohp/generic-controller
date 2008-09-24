@@ -6,9 +6,10 @@
 	<artifactId>generic-controller</artifactId>
 	<packaging>jar</packaging>
 	<version>0.9</version>
-	<name>Generic controller definition and implementation</name>
+	<name>Generic Controller</name>
+	<description>Generic controller definition and implementation</description>
 	<inceptionYear>2008</inceptionYear>
-	<url>http://www.arsmachina.com.br/project/generic-controller</url>
+	<url>http://www.arsmachina.com.br/project/genericcontroller</url>
 	<parent>
 		<groupId>br.com.arsmachina</groupId>
 		<artifactId>parent</artifactId>
