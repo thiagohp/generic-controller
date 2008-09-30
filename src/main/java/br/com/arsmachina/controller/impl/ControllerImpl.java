@@ -26,11 +26,11 @@ import br.com.arsmachina.dao.SortCriterion;
  * Abstract class that implements the {@link Controller} interface by delegating all method calls to
  * a {@link DAO} passed through its constructor.
  * 
- * @author Thiago H. de Paula Figueiredo (ThiagoHP)
+ * @author Thiago H. de Paula Figueiredo
  * @param <T> the entity class related to this controller.
  * @param <K> the type of the field that represents the entity class' primary key.
  */
-public abstract class ControllerImpl<T, K extends Serializable> implements Controller<T, K> {
+public class ControllerImpl<T, K extends Serializable> implements Controller<T, K> {
 
 	private DAO<T, K> dao;
 
@@ -115,6 +115,16 @@ public abstract class ControllerImpl<T, K extends Serializable> implements Contr
 	public List<T> findByIds(K... ids) {
 		return dao.findByIds(ids);
 	}
+	
+	/**
+	 * Invokes <code>delegate.findByExample()<code>.
+	 * @param example
+	 * @return
+	 * @see br.com.arsmachina.dao.ReadableDAO#findByExample(java.lang.Object)
+	 */
+	public List<T> findByExample(T example) {
+		return dao.findByExample(example);
+	}
 
 	/**
 	 * Invokes <code>dao.findById()<code>.
@@ -124,16 +134,6 @@ public abstract class ControllerImpl<T, K extends Serializable> implements Contr
 	 */
 	public T findById(K id) {
 		return dao.findById(id);
-	}
-
-	/**
-	 * Invokes <code>dao.merge()<code>.
-	 * @param object
-	 * @return
-	 * @see br.com.arsmachina.dao.WriteableDAO#merge(java.lang.Object)
-	 */
-	public T merge(T object) {
-		return dao.merge(object);
 	}
 
 	/**

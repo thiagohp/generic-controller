@@ -28,7 +28,7 @@ import br.com.arsmachina.dao.DAO;
 /**
  * Test class for {@link ControllerImpl}.
  * 
- * @author Thiago H. de Paula Figueiredo (ThiagoHP)
+ * @author Thiago H. de Paula Figueiredo
  */
 public class ControllerImplTest {
 	
@@ -153,24 +153,6 @@ public class ControllerImplTest {
 		
 		controller.evict(OBJECT);
 		EasyMock.verify(dao);
-		
-	}
-	
-	/**
-	 * Tests {@link GenericControllerImpl#merge(<T>))}.
-	 */
-	@Test
-	public void merge() {
-
-		final String merged = "xxx";
-		
-		EasyMock.expect(dao.merge(OBJECT)).andReturn(merged);
-		EasyMock.replay(dao);
-		
-		final String result = controller.merge(OBJECT);
-		EasyMock.verify(dao);
-		
-		assert result == merged;
 		
 	}
 	

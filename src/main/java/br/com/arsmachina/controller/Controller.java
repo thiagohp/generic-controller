@@ -20,7 +20,7 @@ import java.io.Serializable;
  * Interface that defines a read-write, generic and generified controller for a given
  * entity class. It extends {@link ReadableController} and {@link WriteableController}.
  * 
- * @author Thiago H. de Paula Figueiredo (ThiagoHP)
+ * @author Thiago H. de Paula Figueiredo
  * @param <T> the entity class related to this controller.
  * @param <K> the type of the field that represents the entity class' primary key.
  */

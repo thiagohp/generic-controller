@@ -23,7 +23,7 @@ import br.com.arsmachina.dao.SortCriterion;
 /**
  * Interface that defines a read-only, generic and generified controller for a given entity class.
  * 
- * @author Thiago H. de Paula Figueiredo (ThiagoHP)
+ * @author Thiago H. de Paula Figueiredo
  * @param <T> the entity class related to this controller.
  * @param <K> the type of the field that represents the entity class' primary key.
  */
@@ -58,6 +58,14 @@ public interface ReadableController<T, K extends Serializable> {
 	 * @return a {@link List} of <code>T</code>.
 	 */
 	List<T> findByIds(K... ids);
+	
+	/**
+	 * Executes a query by example.
+	 * 
+	 * @param example a <code>T</code>.
+	 * @return a {@link List} of <code>T</code>.
+	 */
+	List<T> findByExample(T example);
 
 	/**
 	 * Returns the all instances of the related entity class, but in a paginated fashion.
