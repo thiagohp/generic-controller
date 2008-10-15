@@ -21,7 +21,6 @@ import br.com.arsmachina.controller.Controller;
 import br.com.arsmachina.dao.DAO;
 import br.com.arsmachina.dao.SortCriterion;
 
-
 /**
  * Abstract class that implements the {@link Controller} interface by delegating all method calls to
  * a {@link DAO} passed through its constructor.
@@ -32,7 +31,9 @@ import br.com.arsmachina.dao.SortCriterion;
  */
 public class ControllerImpl<T, K extends Serializable> implements Controller<T, K> {
 
-	private DAO<T, K> dao;
+	private ReadableControllerImpl<T, K> readableController;
+
+	private WriteableControllerImpl<T, K> writeableController;
 
 	/**
 	 * Single constructor of this class.
@@ -45,53 +46,27 @@ public class ControllerImpl<T, K extends Serializable> implements Controller<T, 
 			throw new IllegalArgumentException("Parameter dao cannot be null");
 		}
 
-		this.dao = dao;
+		readableController = new InternalReadableController(dao);
+		writeableController = new InternalWriteableController(dao);
 
 	}
 
 	/**
-	 * Invokes <code>delegate.countAll()<code>.
+	 * Invokes <code>dao.countAll()<code>.
 	 * @return
-	 * @see br.com.arsmachina.dao.ReadableDAO#countAll()
+	 * @see br.com.arsmachina.controller.impl.ReadableControllerImpl#countAll()
 	 */
 	public int countAll() {
-		return dao.countAll();
-	}
-
-	/**
-	 * Invokes <code>dao.delete()<code>.
-	 * @param id
-	 * @see br.com.arsmachina.dao.WriteableDAO#delete(java.io.Serializable)
-	 */
-	public void delete(K id) {
-		dao.delete(id);
-	}
-
-	/**
-	 * Invokes <code>dao.delete()<code>.
-	 * @param object
-	 * @see br.com.arsmachina.dao.WriteableDAO#delete(java.lang.Object)
-	 */
-	public void delete(T object) {
-		dao.delete(object);
-	}
-
-	/**
-	 * Invokes <code>dao.evict()<code>.
-	 * @param object
-	 * @see br.com.arsmachina.dao.WriteableDAO#evict(java.lang.Object)
-	 */
-	public void evict(T object) {
-		dao.evict(object);
+		return readableController.countAll();
 	}
 
 	/**
 	 * Invokes <code>dao.findAll()<code>.
 	 * @return
-	 * @see br.com.arsmachina.dao.ReadableDAO#findAll()
+	 * @see br.com.arsmachina.controller.impl.ReadableControllerImpl#findAll()
 	 */
 	public List<T> findAll() {
-		return dao.findAll();
+		return readableController.findAll();
 	}
 
 	/**
@@ -100,96 +75,145 @@ public class ControllerImpl<T, K extends Serializable> implements Controller<T, 
 	 * @param maxResults
 	 * @param sortCriteria
 	 * @return
-	 * @see br.com.arsmachina.dao.ReadableDAO#findAll(int, int, br.com.arsmachina.dao.SortConstraint[])
+	 * @see br.com.arsmachina.controller.impl.ReadableControllerImpl#findAll(int, int, br.com.arsmachina.dao.SortCriterion[])
 	 */
 	public List<T> findAll(int firstResult, int maxResults, SortCriterion... sortCriteria) {
-		return dao.findAll(firstResult, maxResults, sortCriteria);
+		return readableController.findAll(firstResult, maxResults, sortCriteria);
 	}
 
 	/**
-	 * Invokes <code>dao.findById()<code>.
-	 * @param ids
-	 * @return
-	 * @see br.com.arsmachina.dao.ReadableDAO#findById(K[])
-	 */
-	public List<T> findByIds(K... ids) {
-		return dao.findByIds(ids);
-	}
-	
-	/**
-	 * Invokes <code>delegate.findByExample()<code>.
+	 * Invokes <code>dao.findByExample()<code>.
 	 * @param example
 	 * @return
-	 * @see br.com.arsmachina.dao.ReadableDAO#findByExample(java.lang.Object)
+	 * @see br.com.arsmachina.controller.impl.ReadableControllerImpl#findByExample(java.lang.Object)
 	 */
 	public List<T> findByExample(T example) {
-		return dao.findByExample(example);
+		return readableController.findByExample(example);
 	}
 
 	/**
 	 * Invokes <code>dao.findById()<code>.
 	 * @param id
 	 * @return
-	 * @see br.com.arsmachina.dao.ReadableDAO#findById(java.io.Serializable)
+	 * @see br.com.arsmachina.controller.impl.ReadableControllerImpl#findById(java.io.Serializable)
 	 */
 	public T findById(K id) {
-		return dao.findById(id);
+		return readableController.findById(id);
 	}
 
 	/**
-	 * Invokes <code>dao.save()<code>.
+	 * Invokes <code>dao.findByIds()<code>.
+	 * @param ids
+	 * @return
+	 * @see br.com.arsmachina.controller.impl.ReadableControllerImpl#findByIds(K[])
+	 */
+	public List<T> findByIds(K... ids) {
+		return readableController.findByIds(ids);
+	}
+
+	/**
+	 * Invokes <code>dao.refresh()<code>.
 	 * @param object
-	 * @see br.com.arsmachina.dao.WriteableDAO#save(java.lang.Object)
+	 * @see br.com.arsmachina.controller.impl.ReadableControllerImpl#refresh(java.lang.Object)
 	 */
-	public void save(T object) {
-		dao.save(object);
+	public void refresh(T object) {
+		readableController.refresh(object);
 	}
 
 	/**
-	 * Invokes <code>dao.save()<code> if the object is persistent and 
-	 * <code>dao.save()<code> otherwise. The object is considered persistent
-	 * if {@link #isPersistent(Object)} returns <code>true</code>. 
-	 * @param object a <code>T</code>.
-	 * @see br.com.arsmachina.dao.WriteableDAO#saveOrUpdate(java.lang.Object)
-	 * @see br.com.arsmachina.controller.WriteableController
+	 * Invokes <code>dao.delete()<code>.
+	 * @param id
+	 * @see br.com.arsmachina.controller.impl.WriteableControllerImpl#delete(java.io.Serializable)
 	 */
-	public void saveOrUpdate(T object) {
-
-		if (isPersistent(object)) {
-			update(object);
-		}
-		else {
-			save(object);
-		}
-
+	public void delete(K id) {
+		writeableController.delete(id);
 	}
 
 	/**
-	 * Invokes <code>dao.update()<code>.
+	 * Invokes <code>dao.delete()<code>.
 	 * @param object
-	 * @see br.com.arsmachina.dao.WriteableDAO#update(java.lang.Object)
+	 * @see br.com.arsmachina.controller.impl.WriteableControllerImpl#delete(java.lang.Object)
 	 */
-	public void update(T object) {
-		dao.update(object);
+	public void delete(T object) {
+		writeableController.delete(object);
+	}
+
+	/**
+	 * Invokes <code>dao.evict()<code>.
+	 * @param object
+	 * @see br.com.arsmachina.controller.impl.WriteableControllerImpl#evict(java.lang.Object)
+	 */
+	public void evict(T object) {
+		writeableController.evict(object);
 	}
 
 	/**
 	 * Invokes <code>dao.isPersistent()<code>.
 	 * @param object
 	 * @return
-	 * @see br.com.arsmachina.dao.WriteableDAO#isPersistent(java.lang.Object)
+	 * @see br.com.arsmachina.controller.impl.WriteableControllerImpl#isPersistent(java.lang.Object)
 	 */
 	public boolean isPersistent(T object) {
-		return dao.isPersistent(object);
+		return writeableController.isPersistent(object);
 	}
 
 	/**
-	 * Invokes <code>delegate.refresh()<code>.
+	 * Invokes <code>dao.save()<code>.
 	 * @param object
-	 * @see br.com.arsmachina.dao.ReadableDAO#refresh(java.lang.Object)
+	 * @see br.com.arsmachina.controller.impl.WriteableControllerImpl#save(java.lang.Object)
 	 */
-	public void refresh(T object) {
-		dao.refresh(object);
+	public void save(T object) {
+		writeableController.save(object);
+	}
+
+	/**
+	 * Invokes <code>dao.saveOrUpdate()<code>.
+	 * @param object
+	 * @see br.com.arsmachina.controller.impl.WriteableControllerImpl#saveOrUpdate(java.lang.Object)
+	 */
+	public void saveOrUpdate(T object) {
+		writeableController.saveOrUpdate(object);
+	}
+
+	/**
+	 * Invokes <code>dao.update()<code>.
+	 * @param object
+	 * @see br.com.arsmachina.controller.impl.WriteableControllerImpl#update(java.lang.Object)
+	 */
+	public void update(T object) {
+		writeableController.update(object);
+	}
+
+	/**
+	 * Concrete {@link ReadableControllerImpl} subclass.
+	 * 
+	 * @author Thiago H. de Paula Figueiredo
+	 */
+	private final class InternalReadableController extends ReadableControllerImpl<T, K> {
+
+		/**
+		 * @param dao
+		 */
+		public InternalReadableController(DAO<T, K> dao) {
+			super(dao);
+		}
+
+	}
+
+	/**
+	 * Concrete {@link WriteableControllerImpl} subclass.
+	 * 
+	 * @author Thiago H. de Paula Figueiredo
+	 */
+	private final class InternalWriteableController extends WriteableControllerImpl<T, K> {
+
+		/**
+		 * @param dao
+		 */
+		public InternalWriteableController(DAO<T, K> dao) {
+			super(dao);
+		}
+
 	}
 
 }
