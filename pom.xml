@@ -5,7 +5,7 @@
 	<groupId>br.com.arsmachina</groupId>
 	<artifactId>generic-controller</artifactId>
 	<packaging>jar</packaging>
-	<version>0.9</version>
+	<version>1.0</version>
 	<name>Generic Controller</name>
 	<description>Generic controller definition and implementation</description>
 	<inceptionYear>2008</inceptionYear>
