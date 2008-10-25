@@ -89,11 +89,15 @@ public class ControllerImplTest {
 	@Test
 	public void update() {
 
-		dao.update(OBJECT);
+		final String OTHER_OBJECT = "sfasdf";
+		
+		EasyMock.expect(dao.update(OBJECT)).andReturn(OTHER_OBJECT);
 		EasyMock.replay(dao);
 		
-		controller.update(OBJECT);
+		final String returned = controller.update(OBJECT);
 		EasyMock.verify(dao);
+		
+		assert OTHER_OBJECT == returned;
 		
 	}
 	
@@ -211,14 +215,18 @@ public class ControllerImplTest {
 	 */
 	@Test
 	public void saveOrUpdate() {
+		
+		final String OTHER_OBJECT = "kkkkk";
 
 		// at first, we test with a persistent object
 		EasyMock.expect(dao.isPersistent(OBJECT)).andReturn(true);
-		dao.update(OBJECT);
+		EasyMock.expect(dao.update(OBJECT)).andReturn(OTHER_OBJECT);
 		EasyMock.replay(dao);
 		
-		controller.saveOrUpdate(OBJECT);
+		String returned = controller.saveOrUpdate(OBJECT);
 		EasyMock.verify(dao);
+		
+		assert returned == OTHER_OBJECT;
 		
 		// at last, we test with a non-persistent object
 		EasyMock.reset(dao);
@@ -227,8 +235,10 @@ public class ControllerImplTest {
 		dao.save(OBJECT);
 		EasyMock.replay(dao);
 		
-		controller.saveOrUpdate(OBJECT);
+		returned = controller.saveOrUpdate(OBJECT);
 		EasyMock.verify(dao);
+		
+		assert returned == OBJECT;
 
 	}
 
