@@ -29,7 +29,7 @@ import br.com.arsmachina.dao.SortCriterion;
  * @param <T> the entity class related to this controller.
  * @param <K> the type of the field that represents the entity class' primary key.
  */
-public class ControllerImpl<T, K extends Serializable> implements Controller<T, K> {
+public abstract class ControllerImpl<T, K extends Serializable> implements Controller<T, K> {
 
 	private ReadableControllerImpl<T, K> readableController;
 
@@ -171,8 +171,8 @@ public class ControllerImpl<T, K extends Serializable> implements Controller<T, 
 	 * @param object
 	 * @see br.com.arsmachina.controller.impl.WriteableControllerImpl#saveOrUpdate(java.lang.Object)
 	 */
-	public void saveOrUpdate(T object) {
-		writeableController.saveOrUpdate(object);
+	public T saveOrUpdate(T object) {
+		return writeableController.saveOrUpdate(object);
 	}
 
 	/**
@@ -180,8 +180,18 @@ public class ControllerImpl<T, K extends Serializable> implements Controller<T, 
 	 * @param object
 	 * @see br.com.arsmachina.controller.impl.WriteableControllerImpl#update(java.lang.Object)
 	 */
-	public void update(T object) {
-		writeableController.update(object);
+	public T update(T object) {
+		return writeableController.update(object);
+	}
+	
+	/**
+	 * Invokes <code>dao.reattach()<code>.
+	 * @param object
+	 * @return
+	 * @see br.com.arsmachina.controller.ReadableController#reattach(java.lang.Object)
+	 */
+	public T reattach(T object) {
+		return readableController.reattach(object);
 	}
 
 	/**

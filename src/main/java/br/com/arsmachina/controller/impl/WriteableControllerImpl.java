@@ -92,13 +92,14 @@ public abstract class WriteableControllerImpl<T, K extends Serializable> impleme
 	 * @see br.com.arsmachina.dao.WriteableDAO#saveOrUpdate(java.lang.Object)
 	 * @see br.com.arsmachina.controller.WriteableController
 	 */
-	public void saveOrUpdate(T object) {
+	public T saveOrUpdate(T object) {
 
 		if (isPersistent(object)) {
-			update(object);
+			return update(object);
 		}
 		else {
 			save(object);
+			return object;
 		}
 
 	}
@@ -108,8 +109,8 @@ public abstract class WriteableControllerImpl<T, K extends Serializable> impleme
 	 * @param object
 	 * @see br.com.arsmachina.dao.WriteableDAO#update(java.lang.Object)
 	 */
-	public void update(T object) {
-		dao.update(object);
+	public T update(T object) {
+		return dao.update(object);
 	}
 
 	/**

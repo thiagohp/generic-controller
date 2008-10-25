@@ -30,36 +30,49 @@ public interface WriteableController<T, K extends Serializable> {
 	 * 
 	 * @param object a <code>T</code>.
 	 */
-	public abstract void delete(T object);
+	void delete(T object);
 
 	/**
 	 * Removes an object given its primary key.
 	 * 
 	 * @param id a <code>K</code>.
 	 */
-	public abstract void delete(K id);
+	void delete(K id);
 
 	/**
 	 * Saves (inserts) an object.
 	 * 
 	 * @param object a <code>T</code>
 	 */
-	public abstract void save(T object);
+	void save(T object);
 
 	/**
-	 * Updates an object.
+	 * Updates an object. If it is not persistent, an {@link IllegalArgumentException} is thrown.
+	 * The return value must be the object that is attached to the persistence context of the
+	 * underlying implementation, if it exists. Otherwise, this method simply returns the object
+	 * passed as a parameter. This return value was added to deal ORM frameworks like JPA, that do
+	 * not attach the updated object to the persistence context. See
+	 * <code>EntityManager.merge()</code>.
 	 * 
-	 * @param object a <code>T</code>
+	 * @param object a <code>T</code>.
+	 * @return a <code>T</code>.
+	 * @throws IllegalArgumentException if <code>object</code> is null or not persistent.
 	 */
-	public abstract void update(T object);
+	T update(T object);
 
 	/**
 	 * Saves (inserts) or updates an object. If it is already persistent, it is updated. Otherwise,
-	 * it is saved (inserted)
+	 * it is saved (inserted). The return value must be the object that is attached to the
+	 * persistence context of the underlying implementation, if it exists. Otherwise, this method
+	 * simply returns the object passed as a parameter. This return value was added to deal ORM
+	 * frameworks like JPA, that do not attach the updated object to the persistence context. See
+	 * <code>EntityManager.merge()</code>.
 	 * 
+	 * @return a <code>T</code>.
 	 * @param object a <code>T</code>
+	 * @throws IllegalArgumentException if <code>object</code> is null.
 	 */
-	public abstract void saveOrUpdate(T object);
+	T saveOrUpdate(T object);
 
 	/**
 	 * Removes an object from the current persistence context. This method only has meaningful
@@ -69,13 +82,13 @@ public interface WriteableController<T, K extends Serializable> {
 	 * @param object a <code>T</code>.
 	 * @return a <code>T</code>.
 	 */
-	public abstract void evict(T object);
+	void evict(T object);
 
 	/**
 	 * Tells whether a given object is already persistent or not.
 	 * 
 	 * @return a <code>boolean</code>.
 	 */
-	public abstract boolean isPersistent(T object);
+	boolean isPersistent(T object);
 
 }

@@ -78,5 +78,15 @@ public interface ReadableController<T, K extends Serializable> {
 	 * @return a {@link List} of <code>T</code>.
 	 */
 	List<T> findAll(int firstResult, int maxResults, SortCriterion... sortConstraints);
+	
+	/**
+	 * Reattaches an object to the persistence context, if there is one. The object store
+	 * must not be changed. The attached object, which not necessarily is the one passed
+	 * as a parameter, is returned.
+	 * 
+	 * @param object a <code>T</code>.
+	 * @return object a <code>T</code>.
+	 */
+	T reattach(T object);
 
 }

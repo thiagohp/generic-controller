@@ -117,4 +117,14 @@ public abstract class ReadableControllerImpl<T, K extends Serializable> implemen
 		dao.refresh(object);
 	}
 
+	/**
+	 * Invokes <code>dao.reattach()<code>.
+	 * @param object
+	 * @return
+	 * @see br.com.arsmachina.dao.ReadableDAO#reattach(java.lang.Object)
+	 */
+	public T reattach(T object) {
+		return dao.reattach(object);
+	}
+
 }
