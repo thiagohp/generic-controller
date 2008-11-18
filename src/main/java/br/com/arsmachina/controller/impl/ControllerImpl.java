@@ -167,9 +167,11 @@ public abstract class ControllerImpl<T, K extends Serializable> implements Contr
 	}
 
 	/**
-	 * Invokes <code>dao.saveOrUpdate()<code>.
-	 * @param object
-	 * @see br.com.arsmachina.controller.impl.WriteableControllerImpl#saveOrUpdate(java.lang.Object)
+	 * Invokes {@link #save(Object)} if the object is persistent and {@link #update(Object)}
+	 * otherwise. The object is considered persistent if {@link #isPersistent(Object)} returns
+	 * <code>true</code>.
+	 * 
+	 * @param object a <code>T</code>.
 	 */
 	public T saveOrUpdate(T object) {
 

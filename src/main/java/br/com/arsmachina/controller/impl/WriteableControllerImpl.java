@@ -85,12 +85,11 @@ public abstract class WriteableControllerImpl<T, K extends Serializable> impleme
 	}
 
 	/**
-	 * Invokes <code>dao.save()<code> if the object is persistent and 
-	 * <code>dao.save()<code> otherwise. The object is considered persistent
-	 * if {@link #isPersistent(Object)} returns <code>true</code>. 
+	 * Invokes {@link #save(Object)} if the object is persistent and {@link #update(Object)}
+	 * otherwise. The object is considered persistent if {@link #isPersistent(Object)} returns
+	 * <code>true</code>.
+	 * 
 	 * @param object a <code>T</code>.
-	 * @see br.com.arsmachina.dao.WriteableDAO#saveOrUpdate(java.lang.Object)
-	 * @see br.com.arsmachina.controller.WriteableController
 	 */
 	public T saveOrUpdate(T object) {
 
