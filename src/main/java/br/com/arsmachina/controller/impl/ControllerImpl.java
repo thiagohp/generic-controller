@@ -172,7 +172,15 @@ public abstract class ControllerImpl<T, K extends Serializable> implements Contr
 	 * @see br.com.arsmachina.controller.impl.WriteableControllerImpl#saveOrUpdate(java.lang.Object)
 	 */
 	public T saveOrUpdate(T object) {
-		return writeableController.saveOrUpdate(object);
+
+		if (isPersistent(object)) {
+			return update(object);
+		}
+		else {
+			save(object);
+			return object;
+		}
+		
 	}
 
 	/**
