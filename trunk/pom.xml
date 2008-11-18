@@ -1,0 +1,40 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>br.com.arsmachina</groupId>
+	<artifactId>generic-controller</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0</version>
+	<name>Generic Controller</name>
+	<description>Generic controller definition and implementation</description>
+	<inceptionYear>2008</inceptionYear>
+	<url>http://www.arsmachina.com.br/project/genericcontroller</url>
+	<parent>
+		<groupId>br.com.arsmachina</groupId>
+		<artifactId>parent</artifactId>
+		<version>1.0</version>
+		<relativePath>../parent/pom.xml</relativePath>
+	</parent>
+	<dependencies>
+		<dependency>
+			<groupId>br.com.arsmachina</groupId>
+			<artifactId>generic-dao</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<classifier>jdk15</classifier>
+			<scope>test</scope>
+			<version>5.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.easymock</groupId>
+			<artifactId>easymock</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<reporting>
+		<plugins></plugins>
+	</reporting>
+</project>
