@@ -1,0 +1,8 @@
+1.0
+* Changed return type of methods update() and saveOrUpdate() from void to T in ReadableController and 
+  Controller. 
+* Added method reattach() in ReadableController and Controller.
+* Added ReadableController and WriteableController.
+
+0.9
+* Initial version
