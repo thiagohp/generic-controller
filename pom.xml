@@ -2,10 +2,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>br.com.arsmachina</groupId>
 	<artifactId>generic-controller</artifactId>
 	<packaging>jar</packaging>
-	<version>1.1</version>
 	<name>Generic Controller</name>
 	<description>Generic controller definition and implementation</description>
 	<inceptionYear>2008</inceptionYear>
@@ -13,9 +11,35 @@
 	<parent>
 		<groupId>br.com.arsmachina</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.1</version>
-		<relativePath>../parent/pom.xml</relativePath>
+		<version>1.2.15</version>
 	</parent>
+	<licenses>
+		<license>
+			<name>Apache Software License 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<scm>
+		<connection>scm:git:https://github.com/thiagohp/generic-controller.git</connection>
+	    <developerConnection>scm:git:https://github.com/thiagohp/generic-controller.git</developerConnection>
+	    <url>https://github.com/thiagohp/generic-controller.git</url>	
+	</scm>
+	<issueManagement>
+		<url>https://github.com/thiagohp/generic-controller/issues</url>
+	</issueManagement>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>	
 	<dependencies>
 		<dependency>
 			<groupId>br.com.arsmachina</groupId>
@@ -26,7 +50,6 @@
 			<artifactId>testng</artifactId>
 			<classifier>jdk15</classifier>
 			<scope>test</scope>
-			<version>5.7</version>
 		</dependency>
 		<dependency>
 			<groupId>org.easymock</groupId>
@@ -34,7 +57,4 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	<reporting>
-		<plugins></plugins>
-	</reporting>
 </project>

@@ -1,4 +1,4 @@
-// Copyright 2008-2009 Thiago H. de Paula Figueiredo
+// Copyright 2008-2013 Thiago H. de Paula Figueiredo
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -53,7 +53,7 @@ public abstract class ReadableControllerImpl<T, K extends Serializable> implemen
 	 * @return
 	 * @see br.com.arsmachina.dao.ReadableDAO#countAll()
 	 */
-	public int countAll() {
+	public long countAll() {
 		return dao.countAll();
 	}
 
@@ -113,8 +113,8 @@ public abstract class ReadableControllerImpl<T, K extends Serializable> implemen
 	 * @param object
 	 * @see br.com.arsmachina.dao.ReadableDAO#refresh(java.lang.Object)
 	 */
-	public void refresh(T object) {
-		dao.refresh(object);
+	public T refresh(T object) {
+		return dao.refresh(object);
 	}
 
 	/**

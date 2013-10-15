@@ -1,4 +1,4 @@
-// Copyright 2008-2009 Thiago H. de Paula Figueiredo
+// Copyright 2008-2013 Thiago H. de Paula Figueiredo
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -56,7 +56,7 @@ public abstract class ControllerImpl<T, K extends Serializable> implements Contr
 	 * @return
 	 * @see br.com.arsmachina.controller.impl.ReadableControllerImpl#countAll()
 	 */
-	public int countAll() {
+	public long countAll() {
 		return readableController.countAll();
 	}
 
@@ -116,8 +116,8 @@ public abstract class ControllerImpl<T, K extends Serializable> implements Contr
 	 * @param object
 	 * @see br.com.arsmachina.controller.impl.ReadableControllerImpl#refresh(java.lang.Object)
 	 */
-	public void refresh(T object) {
-		readableController.refresh(object);
+	public T refresh(T object) {
+		return readableController.refresh(object);
 	}
 
 	/**

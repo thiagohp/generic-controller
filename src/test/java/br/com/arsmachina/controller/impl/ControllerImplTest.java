@@ -1,4 +1,4 @@
-// Copyright 2008-2009 Thiago H. de Paula Figueiredo
+// Copyright 2008-2013 Thiago H. de Paula Figueiredo
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,12 +17,10 @@ package br.com.arsmachina.controller.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.easymock.EasyMock;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import br.com.arsmachina.controller.impl.ControllerImpl;
 import br.com.arsmachina.dao.DAO;
 
 /**
@@ -33,6 +31,7 @@ import br.com.arsmachina.dao.DAO;
 public class ControllerImplTest {
 	
 	final static String OBJECT = "persistent";
+	final static String OTHER_OBJECT = "other persistent";
 	final static Integer ID = 1;
 
 	private DAO<String, Integer> dao;
@@ -49,7 +48,7 @@ public class ControllerImplTest {
 	}
 	
 	/**
-	 * Tests {@link ControllerImpl#GenericControllerImpl(DAO)}.
+	 * Tests {@link ControllerImpl#ControllerImpl(DAO)}.
 	 */
 	@Test
 	public void constructor() {
@@ -102,7 +101,7 @@ public class ControllerImplTest {
 	}
 	
 	/**
-	 * Tests {@link GenericControllerImpl#delete(<K>))}.
+	 * Tests {@link ControllerImpl#delete(<K>))}.
 	 */
 	@Test
 	public void delete_id() {
@@ -116,7 +115,7 @@ public class ControllerImplTest {
 	}
 	
 	/**
-	 * Tests {@link GenericControllerImpl#delete(<T>))}.
+	 * Tests {@link ControllerImpl#delete(<T>))}.
 	 */
 	@Test
 	public void delete() {
@@ -130,7 +129,7 @@ public class ControllerImplTest {
 	}
 	
 	/**
-	 * Tests {@link GenericControllerImpl#findAll())}.
+	 * Tests {@link ControllerImpl#findAll())}.
 	 */
 	@Test
 	public void findAll() {
@@ -147,7 +146,7 @@ public class ControllerImplTest {
 	}
 	
 	/**
-	 * Tests {@link GenericControllerImpl#evict(<T>))}.
+	 * Tests {@link ControllerImpl#evict(<T>))}.
 	 */
 	@Test
 	public void evict() {
@@ -161,7 +160,35 @@ public class ControllerImplTest {
 	}
 	
 	/**
-	 * Tests {@link GenericControllerImpl#findById(<K>))}.
+	 * Tests {@link ControllerImpl#reattach(Object)}.
+	 */
+	@Test
+	public void reattach() {
+
+		EasyMock.expect(dao.reattach(OBJECT)).andReturn(OTHER_OBJECT);
+		EasyMock.replay(dao);
+		
+		assert OTHER_OBJECT == controller.reattach(OBJECT);
+		EasyMock.verify(dao);
+		
+	}
+
+	/**
+	 * Tests {@link ControllerImpl#refresh(Object)}.
+	 */
+	@Test
+	public void refresh() {
+
+		EasyMock.expect(dao.refresh(OBJECT)).andReturn(OTHER_OBJECT);
+		EasyMock.replay(dao);
+		
+		assert OTHER_OBJECT == controller.refresh(OBJECT);
+		EasyMock.verify(dao);
+		
+	}
+
+	/**
+	 * Tests {@link ControllerImpl#findById(<K>))}.
 	 */
 	@Test
 	public void findById() {
@@ -177,7 +204,7 @@ public class ControllerImplTest {
 	}
 	
 	/**
-	 * Tests {@link GenericControllerImpl#findByIds(Object[])}.
+	 * Tests {@link ControllerImpl#findByIds(Object[])}.
 	 */
 	@Test
 	public void findByIds() {
@@ -194,7 +221,7 @@ public class ControllerImplTest {
 	}
 	
 	/**
-	 * Tests {@link GenericControllerImpl#findAll(int, int, String, boolean)))}.
+	 * Tests {@link ControllerImpl#findAll(int, int, String, boolean)))}.
 	 */
 	@Test
 	public void findAll_paginated() {
@@ -248,8 +275,7 @@ public class ControllerImplTest {
 		/**
 		 * @param dao
 		 */
-		@SuppressWarnings("unchecked")
-		public DummyGenericController(DAO dao) {
+		public DummyGenericController(DAO<String, Integer> dao) {
 			super(dao);
 		}
 
